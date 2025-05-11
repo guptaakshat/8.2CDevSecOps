@@ -11,28 +11,28 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh 'npm install'
+                    bat 'npm install'
                 }
             }
         }
         stage('Run Tests') {
             steps {
                 script {
-                    sh 'npm test || true' // Allows pipeline to continue despite test failures
+                    bat 'npm test || exit /b 0'
                 }
             }
         }
         stage('Generate Coverage Report') {
             steps {
                 script {
-                    sh 'npm run coverage || true'
+                    bat 'npm run coverage || exit /b 0'
                 }
             }
         }
         stage('NPM Audit (Security Scan)') {
             steps {
                 script {
-                    sh 'npm audit || true' // This will show known CVEs in the output
+                    bat 'npm audit || exit /b 0'
                 }
             }
         }
